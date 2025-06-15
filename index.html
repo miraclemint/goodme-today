@@ -7,138 +7,222 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
 
-    :root {
-      --bg-color: #e5e5e5;
-      --text-color: #1a1a1a;
-      --button-bg: #cccccc;
-      --button-hover: #bbbbbb;
-      --section-bg: #ffffff;
-      --section-border: #cccccc;
-    }
+<!DOCTYPE html>
 
-    body {
-      font-family: 'Kanit', sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-    }
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>Good Me Today</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
 
-    h1 {
-      margin-bottom: 10px;
-    }
+```
+:root {
+  --bg-color: #e5e5e5;
+  --text-color: #1a1a1a;
+  --button-bg: #cccccc;
+  --button-hover: #bbbbbb;
+  --section-bg: #ffffff;
+  --section-border: #cccccc;
+}
 
-    h2, p {
-      margin: 10px 0;
-      font-size: 20px;
-    }
+body {
+  font-family: 'Kanit', sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
 
-    button {
-      padding: 12px 20px;
-      margin: 10px;
-      font-size: 18px;
-      border-radius: 10px;
-      border: none;
-      background: var(--button-bg);
-      color: var(--text-color);
-      cursor: pointer;
-    }
+h1 {
+  margin-bottom: 10px;
+}
 
-    button:hover {
-      background: var(--button-hover);
-    }
+h2, p {
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: 500;
+}
 
-    textarea {
-      width: 90%;
-      max-width: 500px;
-      height: 100px;
-      margin-top: 15px;
-      border-radius: 10px;
-      padding: 15px;
-      font-size: 18px;
-      border: 1px solid var(--section-border);
-      background: #fff;
-      color: var(--text-color);
-      resize: vertical;
-    }
+button {
+  padding: 12px 20px;
+  margin: 10px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  background: var(--button-bg);
+  color: var(--text-color);
+  cursor: pointer;
+}
 
-    .section {
-      background: var(--section-bg);
-      border: 1px solid var(--section-border);
-      border-radius: 14px;
-      padding: 30px 20px;
-      max-width: 600px;
-      width: 90%;
-      margin: 20px auto;
-      box-sizing: border-box;
-    }
+button:hover {
+  background: var(--button-hover);
+}
 
-    .hidden {
-      display: none;
-    }
+textarea {
+  width: 90%;
+  max-width: 500px;
+  height: 100px;
+  margin-top: 15px;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 18px;
+  border: 1px solid var(--section-border);
+  background: #fff;
+  color: var(--text-color);
+  resize: vertical;
+}
 
-    .score-buttons {
-      margin-top: 10px;
-    }
+.section {
+  background: var(--section-bg);
+  border: 1px solid var(--section-border);
+  border-radius: 14px;
+  padding: 30px 20px;
+  max-width: 600px;
+  width: 90%;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
 
-    .score-buttons button {
-      font-size: 16px;
-      padding: 10px 15px;
-      margin: 5px;
-    }
+.hidden {
+  display: none;
+}
 
-    .thank-you {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #4CAF50;
-    }
+.score-buttons {
+  margin-top: 10px;
+}
+
+.score-buttons button {
+  font-size: 16px;
+  padding: 10px 15px;
+  margin: 5px;
+}
+
+.thank-you {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #4CAF50;
+}
+```
+
   </style>
   <script>
     let userName = localStorage.getItem('userName');
 
-    window.onload = function () {
-      if (!userName) {
-        userName = prompt("ขอทราบชื่อของคุณ เพื่อเรียกอย่างสุภาพค่ะ");
-        if (userName) {
-          localStorage.setItem('userName', userName);
-        }
+```
+window.onload = function () {
+  if (!userName) {
+    const nameBox = document.createElement('div');
+    nameBox.style.position = 'absolute';
+    nameBox.style.top = '30%';
+    nameBox.style.left = '50%';
+    nameBox.style.transform = 'translate(-50%, -50%)';
+    nameBox.style.background = '#fff';
+    nameBox.style.padding = '30px';
+    nameBox.style.borderRadius = '12px';
+    nameBox.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+    nameBox.style.textAlign = 'center';
+
+    const label = document.createElement('p');
+    label.innerText = 'กรุณาระบุชื่อของคุณ เพื่อให้เราสามารถเรียกคุณอย่างสุภาพ';
+    label.style.marginBottom = '15px';
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.style.fontSize = '18px';
+    input.style.padding = '10px';
+    input.style.borderRadius = '8px';
+    input.style.border = '1px solid #ccc';
+    input.style.width = '100%';
+
+    const button = document.createElement('button');
+    button.innerText = 'ตกลง';
+    button.style.marginTop = '15px';
+    button.onclick = function () {
+      if (input.value.trim()) {
+        userName = input.value.trim();
+        localStorage.setItem('userName', userName);
+        document.body.removeChild(nameBox);
       }
-    }
+    };
 
-    function setMode(mode) {
-      const root = document.documentElement;
-      document.getElementById('day-box').classList.add('hidden');
-      document.getElementById('night-box').classList.add('hidden');
+    nameBox.appendChild(label);
+    nameBox.appendChild(input);
+    nameBox.appendChild(button);
+    document.body.appendChild(nameBox);
+  }
+}
 
-      if (mode === 'day') {
-        root.style.setProperty('--bg-color', '#FFF4E0');
-        root.style.setProperty('--button-bg', '#FFD699');
-        root.style.setProperty('--button-hover', '#FFBB66');
-        root.style.setProperty('--text-color', '#3a2c1a');
-        document.getElementById('day-box').classList.remove('hidden');
-        document.getElementById('day-name').textContent = userName || "คุณ";
-      } else if (mode === 'night') {
-        root.style.setProperty('--bg-color', '#2F2F4F');
-        root.style.setProperty('--button-bg', '#5C5C8A');
-        root.style.setProperty('--button-hover', '#6F6FA2');
-        root.style.setProperty('--text-color', '#f0f0f0');
-        document.getElementById('night-box').classList.remove('hidden');
-        document.getElementById('night-name').textContent = userName || "คุณ";
-      }
-    }
+function setMode(mode) {
+  const root = document.documentElement;
+  document.getElementById('day-box').classList.add('hidden');
+  document.getElementById('night-box').classList.add('hidden');
 
-    function showMessage(mode) {
-      const msg = mode === 'day' 
-        ? "ขอให้วันนี้เป็นวันที่ดีของคุณนะคะ ✨ อย่าลืมหายใจลึก ๆ แล้วก้าวออกไปอย่างมั่นใจค่ะ"
-        : "วันนี้คุณเก่งมากแล้วค่ะ ขอบคุณตัวเอง และพักผ่อนอย่างสบายใจนะคะ 🌙";
-      alert(msg);
-    }
+  if (mode === 'day') {
+    root.style.setProperty('--bg-color', '#FFF4E0');
+    root.style.setProperty('--button-bg', '#FFD699');
+    root.style.setProperty('--button-hover', '#FFBB66');
+    root.style.setProperty('--text-color', '#3a2c1a');
+    document.getElementById('day-box').classList.remove('hidden');
+    document.getElementById('day-name').textContent = userName || "คุณ";
+  } else if (mode === 'night') {
+    root.style.setProperty('--bg-color', '#2F2F4F');
+    root.style.setProperty('--button-bg', '#5C5C8A');
+    root.style.setProperty('--button-hover', '#6F6FA2');
+    root.style.setProperty('--text-color', '#ffffff');
+    document.getElementById('night-box').classList.remove('hidden');
+    document.getElementById('night-name').textContent = userName || "คุณ";
+  }
+}
+
+function showMessage(mode) {
+  const msg = mode === 'day'
+    ? "ขอให้วันนี้เป็นวันที่ดีของคุณนะคะ ✨ อย่าลืมหายใจลึก ๆ แล้วก้าวออกไปอย่างมั่นใจค่ะ"
+    : "วันนี้คุณเก่งมากแล้วค่ะ ขอบคุณตัวเอง และพักผ่อนอย่างสบายใจนะคะ 🌙";
+  alert(msg);
+}
+```
+
+  </script>
+</head>
+<body>
+
+<h1>Good Me Today</h1>
+<p>เลือกช่วงเวลาของคุณ</p>
+<button onclick="setMode('day')">🌞 กลางวัน</button>
+<button onclick="setMode('night')">🌛 กลางคืน</button>
+
+<div id="day-box" class="section hidden">
+  <h2>สวัสดีค่ะ <span id="day-name"></span> ☀️ เช้านี้คุณรู้สึกพร้อมแค่ไหน?</h2>
+  <div class="score-buttons">
+    <button>1</button><button>2</button><button>3</button><button>4</button><button>5</button>
+  </div>
+  <p>คุณ <span id="day-name"></span> อยากบอกอะไรกับตัวเองในเช้านี้?</p>
+  <textarea id="day-text" placeholder="เขียนข้อความถึงตัวเองอย่างอ่อนโยน..."></textarea>
+  <br>
+  <button onclick="showMessage('day')">บันทึก</button>
+</div>
+
+<div id="night-box" class="section hidden">
+  <h2>สวัสดีค่ะ <span id="night-name"></span> 🌙 วันนี้คุณให้คะแนนตัวเองเท่าไหร่?</h2>
+  <div class="score-buttons">
+    <button>1</button><button>2</button><button>3</button><button>4</button><button>5</button>
+  </div>
+  <p>คุณ <span id="night-name"></span> ภูมิใจในอะไรเล็ก ๆ ของตัวเองคืนนี้?</p>
+  <textarea id="night-text" placeholder="เขียนสิ่งเล็ก ๆ ที่คุณภูมิใจ..."></textarea>
+  <br>
+  <button onclick="showMessage('night')">บันทึก</button>
+</div>
+</body>
+</html>
+
   </script>
 </head>
 <body>
