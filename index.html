@@ -30,6 +30,7 @@
       align-items: center;
       min-height: 100vh;
       text-align: center;
+      transition: background 0.3s ease;
     }
 
     h1 {
@@ -40,6 +41,7 @@
       margin: 10px 0;
       font-size: 20px;
       font-weight: 500;
+      color: var(--text-color);
     }
 
     button {
@@ -80,6 +82,7 @@
       width: 90%;
       margin: 20px auto;
       box-sizing: border-box;
+      color: var(--text-color);
     }
 
     .hidden {
@@ -107,114 +110,25 @@
       color: #4CAF50;
     }
 
-    #night-box h2,
-    #night-box p,
-    #night-box textarea {
-      color: #1a1a1a;
+    #history {
+      text-align: left;
+      max-width: 600px;
+      padding: 20px;
+      background: var(--section-bg);
+      border-radius: 10px;
+      border: 1px solid var(--section-border);
+      color: var(--text-color);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+
+    #history div {
+      color: var(--text-color);
+      font-size: 16px;
+      margin-bottom: 8px;
+      line-height: 1.6;
     }
   </style>
-  <script>
-    let userName = localStorage.getItem('userName');
-
-    window.onload = function () {
-      if (!userName) {
-        const nameBox = document.createElement('div');
-        nameBox.style.position = 'absolute';
-        nameBox.style.top = '30%';
-        nameBox.style.left = '50%';
-        nameBox.style.transform = 'translate(-50%, -50%)';
-        nameBox.style.background = '#fff';
-        nameBox.style.padding = '30px';
-        nameBox.style.borderRadius = '12px';
-        nameBox.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-        nameBox.style.textAlign = 'center';
-
-        const label = document.createElement('p');
-        label.innerText = 'กรุณาระบุชื่อของคุณ เพื่อให้เราสามารถเรียกคุณอย่างสุภาพ';
-        label.style.marginBottom = '15px';
-
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.placeholder = 'พิมพ์ชื่อของคุณที่นี่';
-        input.style.fontSize = '18px';
-        input.style.padding = '10px';
-        input.style.borderRadius = '8px';
-        input.style.border = '1px solid #ccc';
-        input.style.width = '100%';
-
-        const button = document.createElement('button');
-        button.innerText = 'ตกลง';
-        button.style.marginTop = '15px';
-        button.onclick = function () {
-          if (input.value.trim()) {
-            userName = input.value.trim();
-            localStorage.setItem('userName', userName);
-            document.body.removeChild(nameBox);
-          }
-        };
-
-        nameBox.appendChild(label);
-        nameBox.appendChild(input);
-        nameBox.appendChild(button);
-        document.body.appendChild(nameBox);
-      }
-    }
-
-    function setMode(mode) {
-      const root = document.documentElement;
-      document.getElementById('day-box').classList.add('hidden');
-      document.getElementById('night-box').classList.add('hidden');
-
-      if (mode === 'day') {
-        root.style.setProperty('--bg-color', '#FFF4E0');
-        root.style.setProperty('--button-bg', '#FFD699');
-        root.style.setProperty('--button-hover', '#FFBB66');
-        root.style.setProperty('--text-color', '#3a2c1a');
-        document.getElementById('day-box').classList.remove('hidden');
-        document.getElementById('day-name').textContent = userName || "คุณ";
-      } else if (mode === 'night') {
-        root.style.setProperty('--bg-color', '#2F2F4F');
-        root.style.setProperty('--button-bg', '#5C5C8A');
-        root.style.setProperty('--button-hover', '#6F6FA2');
-        root.style.setProperty('--text-color', '#ffffff');
-        document.getElementById('night-box').classList.remove('hidden');
-        document.getElementById('night-name').textContent = userName || "คุณ";
-      }
-
-      document.querySelectorAll('.score-buttons').forEach(group => {
-        group.querySelectorAll('button').forEach(button => {
-          button.onclick = function () {
-            group.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
-            this.classList.add('selected');
-          }
-        });
-      });
-    }
-
-    function showMessage(mode) {
-      const scoreButtons = document.querySelector(`#${mode}-box .score-buttons`).querySelectorAll('button');
-      const selected = Array.from(scoreButtons).find(btn => btn.classList.contains('selected'));
-      const text = document.getElementById(`${mode}-text`).value.trim();
-      const resultBox = document.getElementById('result');
-
-      if (!selected) {
-        alert('กรุณาเลือกคะแนนก่อนค่ะ');
-        return;
-      }
-
-      if (!text) {
-        alert('กรุณาเขียนข้อความของคุณก่อนค่ะ');
-        return;
-      }
-
-      const msg = mode === 'day'
-        ? "ขอบคุณที่เริ่มวันใหม่อย่างมีพลังนะคะ 🌞"
-        : "เก่งมากเลยวันนี้ พักผ่อนอย่างสบายใจนะคะ 🌙";
-
-      resultBox.classList.remove('hidden');
-      resultBox.innerText = `${msg}\nคะแนน: ${selected.textContent}\n“${text}”`;
-    }
-  </script>
 </head>
 <body>
 
@@ -226,26 +140,88 @@
 <div id="day-box" class="section hidden">
   <h2>สวัสดีค่ะ <span id="day-name"></span> ☀️ เช้านี้คุณรู้สึกพร้อมแค่ไหน?</h2>
   <div class="score-buttons">
-    <button>1</button><button>2</button><button>3</button><button>4</button><button>5</button>
+    <button onclick="selectScore(this)">1</button><button onclick="selectScore(this)">2</button><button onclick="selectScore(this)">3</button><button onclick="selectScore(this)">4</button><button onclick="selectScore(this)">5</button>
   </div>
   <p>คุณ <span id="day-name"></span> อยากบอกอะไรกับตัวเองในเช้านี้?</p>
   <textarea id="day-text" placeholder="เขียนข้อความถึงตัวเองอย่างอ่อนโยน..."></textarea>
   <br>
-  <button onclick="showMessage('day')">บันทึก</button>
+  <button onclick="saveData('day')">บันทึก</button>
 </div>
 
 <div id="night-box" class="section hidden">
   <h2>สวัสดีค่ะ <span id="night-name"></span> 🌙 วันนี้คุณให้คะแนนตัวเองเท่าไหร่?</h2>
   <div class="score-buttons">
-    <button>1</button><button>2</button><button>3</button><button>4</button><button>5</button>
+    <button onclick="selectScore(this)">1</button><button onclick="selectScore(this)">2</button><button onclick="selectScore(this)">3</button><button onclick="selectScore(this)">4</button><button onclick="selectScore(this)">5</button>
   </div>
   <p>คุณ <span id="night-name"></span> ภูมิใจในอะไรเล็ก ๆ ของตัวเองคืนนี้?</p>
   <textarea id="night-text" placeholder="เขียนสิ่งเล็ก ๆ ที่คุณภูมิใจ..."></textarea>
   <br>
-  <button onclick="showMessage('night')">บันทึก</button>
+  <button onclick="saveData('night')">บันทึก</button>
 </div>
 
 <div id="result" class="thank-you hidden"></div>
+
+<h2 style="margin-top:40px">📜 บันทึกย้อนหลัง</h2>
+<div id="history"></div>
+
+<script>
+let userName = localStorage.getItem('userName');
+if (!userName) {
+  userName = prompt("กรุณาใส่ชื่อของคุณ:") || "คุณ";
+  localStorage.setItem('userName', userName);
+}
+
+document.getElementById("day-name").textContent = userName;
+document.getElementById("night-name").textContent = userName;
+
+function setMode(mode) {
+  document.getElementById('day-box').classList.add('hidden');
+  document.getElementById('night-box').classList.add('hidden');
+  if (mode === 'day') {
+    document.documentElement.style.setProperty('--bg-color', '#FFF4E0');
+    document.documentElement.style.setProperty('--text-color', '#3a2c1a');
+    document.getElementById('day-box').classList.remove('hidden');
+  } else {
+    document.documentElement.style.setProperty('--bg-color', '#FFF4E0');
+    document.documentElement.style.setProperty('--text-color', '#1a1a1a');
+    document.getElementById('night-box').classList.remove('hidden');
+  }
+  updateHistory();
+}
+
+function selectScore(btn) {
+  const siblings = btn.parentElement.querySelectorAll('button');
+  siblings.forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  btn.parentElement.dataset.score = btn.textContent;
+}
+
+function saveData(mode) {
+  const score = document.querySelector(`#${mode}-box .score-buttons`).dataset.score;
+  const text = document.getElementById(`${mode}-text`).value;
+  if (!score && !text.trim()) return;
+  const logs = JSON.parse(localStorage.getItem('log') || '[]');
+  logs.push({ mode, name: userName, score, text, date: new Date().toLocaleString() });
+  localStorage.setItem('log', JSON.stringify(logs));
+  document.getElementById('result').textContent = '✅ บันทึกเรียบร้อยแล้วค่ะ';
+  document.getElementById('result').classList.remove('hidden');
+  setTimeout(() => document.getElementById('result').classList.add('hidden'), 3000);
+  updateHistory();
+}
+
+function updateHistory() {
+  const historyDiv = document.getElementById('history');
+  const logs = JSON.parse(localStorage.getItem('log') || '[]');
+  historyDiv.innerHTML = logs.map(log => `
+    <div>
+      <strong>${log.name}</strong> (${log.mode === 'day' ? '🌞' : '🌛'}) [${log.date}]<br>
+      คะแนน: ${log.score || '-'}<br>
+      ข้อความ: ${log.text || '-'}
+    </div>`).reverse().join('');
+}
+
+updateHistory();
+</script>
 
 </body>
 </html>
