@@ -14,6 +14,8 @@
       --button-hover: #bbbbbb;
       --section-bg: #ffffff;
       --section-border: #cccccc;
+      --selected-bg: #4CAF50;
+      --selected-text: #ffffff;
     }
 
     body {
@@ -26,7 +28,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       text-align: center;
     }
 
@@ -94,10 +96,21 @@
       margin: 5px;
     }
 
+    .score-buttons button.selected {
+      background: var(--selected-bg);
+      color: var(--selected-text);
+    }
+
     .thank-you {
       margin-top: 20px;
       font-size: 18px;
       color: #4CAF50;
+    }
+
+    #night-box h2,
+    #night-box p,
+    #night-box textarea {
+      color: #1a1a1a;
     }
   </style>
   <script>
@@ -167,13 +180,39 @@
         document.getElementById('night-box').classList.remove('hidden');
         document.getElementById('night-name').textContent = userName || "คุณ";
       }
+
+      document.querySelectorAll('.score-buttons').forEach(group => {
+        group.querySelectorAll('button').forEach(button => {
+          button.onclick = function () {
+            group.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
+            this.classList.add('selected');
+          }
+        });
+      });
     }
 
     function showMessage(mode) {
+      const scoreButtons = document.querySelector(`#${mode}-box .score-buttons`).querySelectorAll('button');
+      const selected = Array.from(scoreButtons).find(btn => btn.classList.contains('selected'));
+      const text = document.getElementById(`${mode}-text`).value.trim();
+      const resultBox = document.getElementById('result');
+
+      if (!selected) {
+        alert('กรุณาเลือกคะแนนก่อนค่ะ');
+        return;
+      }
+
+      if (!text) {
+        alert('กรุณาเขียนข้อความของคุณก่อนค่ะ');
+        return;
+      }
+
       const msg = mode === 'day'
-        ? "ขอให้วันนี้เป็นวันที่ดีของคุณนะคะ ✨ อย่าลืมหายใจลึก ๆ แล้วก้าวออกไปอย่างมั่นใจค่ะ"
-        : "วันนี้คุณเก่งมากแล้วค่ะ ขอบคุณตัวเอง และพักผ่อนอย่างสบายใจนะคะ 🌙";
-      alert(msg);
+        ? "ขอบคุณที่เริ่มวันใหม่อย่างมีพลังนะคะ 🌞"
+        : "เก่งมากเลยวันนี้ พักผ่อนอย่างสบายใจนะคะ 🌙";
+
+      resultBox.classList.remove('hidden');
+      resultBox.innerText = `${msg}\nคะแนน: ${selected.textContent}\n“${text}”`;
     }
   </script>
 </head>
@@ -205,6 +244,8 @@
   <br>
   <button onclick="showMessage('night')">บันทึก</button>
 </div>
+
+<div id="result" class="thank-you hidden"></div>
 
 </body>
 </html>
