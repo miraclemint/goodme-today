@@ -2,226 +2,413 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>Good Me Today</title>
+  <title>Mint | Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
-
     :root {
-      --bg-color: #e5e5e5;
-      --text-color: #1a1a1a;
-      --button-bg: #cccccc;
-      --button-hover: #bbbbbb;
-      --section-bg: #ffffff;
-      --section-border: #cccccc;
-      --selected-bg: #4CAF50;
-      --selected-text: #ffffff;
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #cbd5e1;
+      --accent: #38bdf8;
+      --accent-2: #a78bfa;
+      --text: #e2e8f0;
+      --chip: #1e293b;
+      --shadow: 0 12px 30px rgba(0,0,0,0.3);
     }
+
+    * { box-sizing: border-box; }
 
     body {
-      font-family: 'Kanit', sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
       margin: 0;
-      padding: 0;
+      font-family: 'Kanit', sans-serif;
+      background: radial-gradient(circle at 10% 20%, rgba(56,189,248,0.08), transparent 25%),
+                  radial-gradient(circle at 80% 0%, rgba(167,139,250,0.1), transparent 30%),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+    }
+
+    header {
+      padding: 32px 22px;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      min-height: 100vh;
-      text-align: center;
-      transition: background 0.3s ease;
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
     }
 
-    h1 {
-      margin-bottom: 10px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
-    h2, p {
-      margin: 10px 0;
-      font-size: 20px;
-      font-weight: 500;
-      color: var(--text-color);
-    }
-
-    button {
-      padding: 12px 20px;
-      margin: 10px;
-      font-size: 18px;
-      border-radius: 10px;
-      border: none;
-      background: var(--button-bg);
-      color: var(--text-color);
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: var(--button-hover);
-    }
-
-    textarea {
-      width: 90%;
-      max-width: 500px;
-      height: 100px;
-      margin-top: 15px;
-      border-radius: 10px;
-      padding: 15px;
-      font-size: 18px;
-      border: 1px solid var(--section-border);
-      background: #fff;
-      color: var(--text-color);
-      resize: vertical;
-    }
-
-    .section {
-      background: var(--section-bg);
-      border: 1px solid var(--section-border);
+    .badge {
+      width: 44px;
+      height: 44px;
       border-radius: 14px;
-      padding: 30px 20px;
-      max-width: 600px;
-      width: 90%;
-      margin: 20px auto;
-      box-sizing: border-box;
-      color: var(--text-color);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: grid;
+      place-items: center;
+      color: #0b1221;
+      font-weight: 700;
+      box-shadow: var(--shadow);
     }
 
-    .hidden {
-      display: none;
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
     }
 
-    .score-buttons {
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: transparent;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    nav a:hover {
+      color: var(--text);
+      border-color: rgba(56,189,248,0.4);
+      background: rgba(56,189,248,0.08);
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 22px 70px;
+      display: grid;
+      gap: 32px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: center;
+      gap: 24px;
+      padding: 26px;
+      background: rgba(17,24,39,0.7);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: -140px;
+      top: -100px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(56,189,248,0.28), transparent 60%);
+      filter: blur(10px);
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 4vw, 42px);
+    }
+
+    .hero p {
+      margin: 6px 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 18px;
+    }
+
+    .hero .highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: rgba(56,189,248,0.12);
+      border-radius: 14px;
+      color: var(--text);
+      border: 1px solid rgba(56,189,248,0.35);
+      margin-bottom: 14px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      padding: 8px 12px;
+      background: var(--chip);
+      border-radius: 12px;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,0.04);
+      font-size: 14px;
+    }
+
+    .section-card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 18px;
+      font-size: 22px;
+    }
+
+    .section-title span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 0 8px rgba(56,189,248,0.12);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 18px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56,189,248,0.45);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .mini-tag {
+      display: inline-block;
+      padding: 6px 10px;
+      background: rgba(167,139,250,0.18);
+      color: #e9ddff;
+      border-radius: 10px;
+      font-size: 13px;
       margin-top: 10px;
     }
 
-    .score-buttons button {
-      font-size: 16px;
-      padding: 10px 15px;
-      margin: 5px;
+    .timeline {
+      border-left: 2px solid rgba(56,189,248,0.3);
+      padding-left: 18px;
+      display: grid;
+      gap: 18px;
     }
 
-    .score-buttons button.selected {
-      background: var(--selected-bg);
-      color: var(--selected-text);
+    .timeline-item {
+      position: relative;
+      padding-left: 6px;
     }
 
-    .thank-you {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #4CAF50;
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -27px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      border-radius: 50%;
+      box-shadow: 0 0 0 6px rgba(56,189,248,0.18);
     }
 
-    #history {
-      text-align: left;
-      max-width: 600px;
-      padding: 20px;
-      background: var(--section-bg);
-      border-radius: 10px;
-      border: 1px solid var(--section-border);
-      color: var(--text-color);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin-bottom: 40px;
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(12,19,35,0.8);
     }
 
-    #history div {
-      color: var(--text-color);
-      font-size: 16px;
-      margin-bottom: 8px;
-      line-height: 1.6;
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .contact a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    .contact a:hover {
+      border-color: rgba(56,189,248,0.45);
+      background: rgba(56,189,248,0.1);
     }
   </style>
 </head>
 <body>
+  <header>
+    <div class="brand">
+      <div class="badge">M</div>
+      <div>
+        <div style="font-size:18px;">Mint Pratan</div>
+        <div style="color:var(--muted); font-size:14px;">Product Designer & Creative Coder</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#about">เกี่ยวกับ</a>
+      <a href="#skills">ทักษะ</a>
+      <a href="#projects">ผลงาน</a>
+      <a href="#contact">ติดต่อ</a>
+    </nav>
+  </header>
 
-<h1>Good Me Today</h1>
-<p>เลือกช่วงเวลาของคุณ</p>
-<button onclick="setMode('day')">🌞 กลางวัน</button>
-<button onclick="setMode('night')">🌛 กลางคืน</button>
+  <main>
+    <div class="container">
+      <section class="hero" id="about">
+        <div>
+          <div class="highlight">👋 สวัสดี ฉันคือ มิ้น นักออกแบบที่ชอบสร้างประสบการณ์ดิจิทัลที่เรียบง่ายและมีความหมาย</div>
+          <h1>ดีไซน์ที่ใส่ใจคนใช้ แถมมีสัมผัสแห่งความสนุก</h1>
+          <p>มิ้นคือ Product Designer ที่ผสมผสาน UX ที่เรียบง่ายกับการเล่าเรื่องที่น่าจดจำ เพื่อช่วยทีมสร้างสินค้าให้น่าใช้และเติบโตได้จริง</p>
+          <div class="tags">
+            <span class="tag">UX Research</span>
+            <span class="tag">Interface Design</span>
+            <span class="tag">Design System</span>
+            <span class="tag">No-Code Lover</span>
+          </div>
+        </div>
+        <div class="card" style="text-align:center; align-self: stretch;">
+          <h3>ภาพรวมเร็ว ๆ</h3>
+          <p style="margin:10px 0 0;">ประสบการณ์ 5+ ปีในการออกแบบผลิตภัณฑ์ดิจิทัล ทั้งแอปมือถือและเว็บแพลตฟอร์ม</p>
+          <div class="tags" style="justify-content:center; margin-top:14px;">
+            <span class="tag">Figma</span>
+            <span class="tag">Framer</span>
+            <span class="tag">HTML/CSS</span>
+          </div>
+        </div>
+      </section>
 
-<div id="day-box" class="section hidden">
-  <h2>สวัสดีค่ะ <span id="day-name"></span> ☀️ เช้านี้คุณรู้สึกพร้อมแค่ไหน?</h2>
-  <div class="score-buttons">
-    <button onclick="selectScore(this)">1</button><button onclick="selectScore(this)">2</button><button onclick="selectScore(this)">3</button><button onclick="selectScore(this)">4</button><button onclick="selectScore(this)">5</button>
-  </div>
-  <p>คุณ <span id="day-name"></span> อยากบอกอะไรกับตัวเองในเช้านี้?</p>
-  <textarea id="day-text" placeholder="เขียนข้อความถึงตัวเองอย่างอ่อนโยน..."></textarea>
-  <br>
-  <button onclick="saveData('day')">บันทึก</button>
-</div>
+      <section class="section-card" id="skills">
+        <div class="section-title"><span></span>ทักษะเด่น</div>
+        <div class="grid">
+          <div class="card">
+            <h3>Product Discovery</h3>
+            <p>สำรวจปัญหา วิเคราะห์ผู้ใช้ สร้างไอเดีย และทำ Prototype เพื่อตรวจสอบสมมติฐานรวดเร็ว</p>
+            <div class="mini-tag">Workshop / User Interview / Journey Mapping</div>
+          </div>
+          <div class="card">
+            <h3>Interaction & Visual</h3>
+            <p>ออกแบบหน้าตาที่สะอาดตา พร้อมไมโครอินเตอร์แอคชันเล็ก ๆ ที่ช่วยให้ประสบการณ์ลื่นไหล</p>
+            <div class="mini-tag">Motion / UI Library / Accessibility</div>
+          </div>
+          <div class="card">
+            <h3>Design System</h3>
+            <p>วางมาตรฐานคอมโพเนนต์ สร้างโทเคนและคู่มือ เพื่อให้ทีมพัฒนาใช้ซ้ำได้รวดเร็วและสอดคล้อง</p>
+            <div class="mini-tag">Tokens / Components / Documentation</div>
+          </div>
+          <div class="card">
+            <h3>Collaboration</h3>
+            <p>ทำงานร่วมกับ PM และวิศวกรอย่างใกล้ชิด จัดทำสเปคชัดเจน และเก็บ feedback รอบด้าน</p>
+            <div class="mini-tag">Sprint / Handoff / QA</div>
+          </div>
+        </div>
+      </section>
 
-<div id="night-box" class="section hidden">
-  <h2>สวัสดีค่ะ <span id="night-name"></span> 🌙 วันนี้คุณให้คะแนนตัวเองเท่าไหร่?</h2>
-  <div class="score-buttons">
-    <button onclick="selectScore(this)">1</button><button onclick="selectScore(this)">2</button><button onclick="selectScore(this)">3</button><button onclick="selectScore(this)">4</button><button onclick="selectScore(this)">5</button>
-  </div>
-  <p>คุณ <span id="night-name"></span> ภูมิใจในอะไรเล็ก ๆ ของตัวเองคืนนี้?</p>
-  <textarea id="night-text" placeholder="เขียนสิ่งเล็ก ๆ ที่คุณภูมิใจ..."></textarea>
-  <br>
-  <button onclick="saveData('night')">บันทึก</button>
-</div>
+      <section class="section-card" id="projects">
+        <div class="section-title"><span></span>ผลงานที่ภูมิใจ</div>
+        <div class="grid">
+          <div class="card">
+            <h3>Wellness App Revamp</h3>
+            <p>ออกแบบประสบการณ์ใหม่ให้แอปสุขภาพ เพิ่ม retention 18% ด้วย onboarding ที่ชัดเจนและแดชบอร์ดส่วนตัว</p>
+            <div class="mini-tag">Mobile · UX Writing · A/B Test</div>
+          </div>
+          <div class="card">
+            <h3>Fintech Design System</h3>
+            <p>สร้างระบบดีไซน์สำหรับแพลตฟอร์มการเงิน 3 โปรดักต์ ลดเวลา handoff ต่อฟีเจอร์มากกว่า 30%</p>
+            <div class="mini-tag">Design Tokens · Documentation</div>
+          </div>
+          <div class="card">
+            <h3>Learning Platform</h3>
+            <p>ร่วมพัฒนาเว็บเรียนออนไลน์ ปรับ flow ซื้อคอร์สและสร้าง community ที่ใช้ง่ายขึ้น</p>
+            <div class="mini-tag">Web · Research · Conversion</div>
+          </div>
+        </div>
+      </section>
 
-<div id="result" class="thank-you hidden"></div>
+      <section class="section-card" id="timeline">
+        <div class="section-title"><span></span>เส้นทางการทำงาน</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <h3>Senior Product Designer · 2023 - ปัจจุบัน</h3>
+            <p>ดูแล UX/UI แอปไลฟ์สไตล์ วางระบบดีไซน์ร่วมกับทีมวิศวกร และโค้ชทีมดีไซน์รุ่นใหม่</p>
+          </div>
+          <div class="timeline-item">
+            <h3>Product Designer · 2020 - 2023</h3>
+            <p>ทำงาน end-to-end ตั้งแต่รีเสิร์ช สร้างต้นแบบ ไปจนถึง handoff เพื่อส่งมอบประสบการณ์ที่วัดผลได้</p>
+          </div>
+          <div class="timeline-item">
+            <h3>Freelance Visual Designer · 2018 - 2020</h3>
+            <p>ออกแบบแบรนด์ เว็บไซต์ และสื่อโซเชียลให้กับธุรกิจขนาดเล็ก ผสมผสานความสนุกกับการใช้งานจริง</p>
+          </div>
+        </div>
+      </section>
 
-<h2 style="margin-top:40px">📜 บันทึกย้อนหลัง</h2>
-<div id="history"></div>
+      <section class="section-card" id="contact">
+        <div class="section-title"><span></span>ช่องทางติดต่อ</div>
+        <p style="margin-top:0; color: var(--muted);">พูดคุยเรื่องงานหรืออยากร่วมสร้างโปรเจกต์สนุก ๆ ทักมาได้เลย</p>
+        <div class="contact">
+          <a href="mailto:mint.design@example.com">✉️ mint.design@example.com</a>
+          <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">💼 LinkedIn</a>
+          <a href="https://dribbble.com" target="_blank" rel="noreferrer">🎨 Dribbble</a>
+          <a href="https://www.behance.net" target="_blank" rel="noreferrer">📁 Behance</a>
+        </div>
+      </section>
+    </div>
+  </main>
 
-<script>
-let userName = localStorage.getItem('userName');
-if (!userName) {
-  userName = prompt("กรุณาใส่ชื่อของคุณ:") || "คุณ";
-  localStorage.setItem('userName', userName);
-}
-
-document.getElementById("day-name").textContent = userName;
-document.getElementById("night-name").textContent = userName;
-
-function setMode(mode) {
-  document.getElementById('day-box').classList.add('hidden');
-  document.getElementById('night-box').classList.add('hidden');
-  if (mode === 'day') {
-    document.documentElement.style.setProperty('--bg-color', '#FFF4E0');
-    document.documentElement.style.setProperty('--text-color', '#3a2c1a');
-    document.getElementById('day-box').classList.remove('hidden');
-  } else {
-    document.documentElement.style.setProperty('--bg-color', '#FFF4E0');
-    document.documentElement.style.setProperty('--text-color', '#1a1a1a');
-    document.getElementById('night-box').classList.remove('hidden');
-  }
-  updateHistory();
-}
-
-function selectScore(btn) {
-  const siblings = btn.parentElement.querySelectorAll('button');
-  siblings.forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  btn.parentElement.dataset.score = btn.textContent;
-}
-
-function saveData(mode) {
-  const score = document.querySelector(`#${mode}-box .score-buttons`).dataset.score;
-  const text = document.getElementById(`${mode}-text`).value;
-  if (!score && !text.trim()) return;
-  const logs = JSON.parse(localStorage.getItem('log') || '[]');
-  logs.push({ mode, name: userName, score, text, date: new Date().toLocaleString() });
-  localStorage.setItem('log', JSON.stringify(logs));
-  document.getElementById('result').textContent = '✅ บันทึกเรียบร้อยแล้วค่ะ';
-  document.getElementById('result').classList.remove('hidden');
-  setTimeout(() => document.getElementById('result').classList.add('hidden'), 3000);
-  updateHistory();
-}
-
-function updateHistory() {
-  const historyDiv = document.getElementById('history');
-  const logs = JSON.parse(localStorage.getItem('log') || '[]');
-  historyDiv.innerHTML = logs.map(log => `
-    <div>
-      <strong>${log.name}</strong> (${log.mode === 'day' ? '🌞' : '🌛'}) [${log.date}]<br>
-      คะแนน: ${log.score || '-'}<br>
-      ข้อความ: ${log.text || '-'}
-    </div>`).reverse().join('');
-}
-
-updateHistory();
-</script>
-
+  <footer>
+    © 2024 Mint Pratan · ออกแบบด้วยความตั้งใจและกาแฟหนึ่งแก้ว
+  </footer>
 </body>
 </html>
